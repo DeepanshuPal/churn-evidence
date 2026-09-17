@@ -1,0 +1,4 @@
+account_id,event,occurred_at,amount,reference
+acc_001,payment_failed,2026-09-15T06:00:00+00:00,2400,https://billing.example/accounts/acc_001/invoices/89
+acc_002,upgrade,2026-09-14T06:00:00+00:00,480,https://billing.example/accounts/acc_002/subscriptions/12
+acc_003,downgrade_requested,2026-09-16T06:00:00+00:00,6100,https://billing.example/accounts/acc_003/subscriptions/22

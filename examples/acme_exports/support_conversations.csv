@@ -1,0 +1,4 @@
+account_id,conversation_id,occurred_at,topic,sentiment,status,excerpt,reference
+acc_001,c_193,2026-09-14T12:30:00+00:00,integration_failed,frustrated,unresolved,We cannot trust the sync before quarter close,https://chatwoot.example/app/accounts/1/conversations/193
+acc_002,c_205,2026-09-13T14:00:00+00:00,onboarding,positive,resolved,Setup was easier than expected,https://chatwoot.example/app/accounts/1/conversations/205
+acc_003,c_211,2026-09-15T09:20:00+00:00,missing_feature,negative,unresolved,We still cannot assign spend caps by workspace,https://chatwoot.example/app/accounts/1/conversations/211

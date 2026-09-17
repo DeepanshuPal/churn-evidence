@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "churn-evidence"
+version = "0.1.0"
+description = "Evidence-linked churn dossiers from product, support, billing, and survey exports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Deepanshu Pal"}]
+keywords = ["churn", "customer-success", "gtm", "analytics", "posthog", "chatwoot"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = []
+
+[project.scripts]
+churn-evidence = "churn_evidence.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

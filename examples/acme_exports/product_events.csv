@@ -1,0 +1,5 @@
+account_id,event,occurred_at,properties,reference
+acc_001,usage_drop,2026-09-13T10:00:00+00:00,Weekly active seats fell 42% in 21 days,https://app.posthog.example/project/1/insights/usage
+acc_001,integration_failed,2026-09-14T12:00:00+00:00,Salesforce sync failed 9 times,https://app.posthog.example/project/1/events/sf-sync
+acc_002,activated,2026-09-12T09:00:00+00:00,Published first workflow,https://app.posthog.example/project/1/person/relay
+acc_003,seat_removed,2026-09-15T08:00:00+00:00,Admin removed 14 of 32 seats,https://app.posthog.example/project/1/person/juniper
