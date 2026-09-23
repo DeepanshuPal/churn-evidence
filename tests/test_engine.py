@@ -38,3 +38,13 @@ def test_old_evidence_decays():
     old = Evidence("support", datetime(2026, 6, 19, tzinfo=timezone.utc), "bug", "bug", 40, "x")
     dossier = build_dossier(Account("a3", "Gamma", evidence=[old]), NOW)
     assert dossier.score == 10
+
+
+def test_evidence_after_as_of_is_ignored():
+    future = Evidence("billing", datetime(2026, 9, 18, tzinfo=timezone.utc), "cancel_scheduled",
+                      "cancel scheduled", 55, "billing:cancel")
+    past = evidence("support", "bug", 18)
+    dossier = build_dossier(Account("a4", "Delta", evidence=[future, past]), NOW)
+    assert dossier.score == 18
+    assert [item.kind for item in dossier.reasons] == ["bug"]
+    assert all("save-plan" not in play for play in dossier.plays)

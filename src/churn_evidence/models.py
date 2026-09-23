@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def parse_time(value: str) -> datetime:
+    """Parse an ISO 8601 timestamp; values without an offset are treated as UTC."""
     cleaned = value.strip().replace("Z", "+00:00")
-    return datetime.fromisoformat(cleaned)
+    parsed = datetime.fromisoformat(cleaned)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
 
 
 @dataclass(frozen=True)

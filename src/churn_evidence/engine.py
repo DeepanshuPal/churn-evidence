@@ -43,7 +43,9 @@ def choose_plays(reasons: list[Evidence]) -> list[str]:
 
 def build_dossier(account: Account, as_of: datetime | None = None) -> Dossier:
     as_of = as_of or datetime.now(timezone.utc)
-    weighted = sorted(((decayed_weight(item, as_of), item) for item in account.evidence), reverse=True, key=lambda x: x[0])
+    # Score a point-in-time snapshot: evidence recorded after as_of did not exist yet.
+    known = [item for item in account.evidence if item.occurred_at <= as_of]
+    weighted = sorted(((decayed_weight(item, as_of), item) for item in known), reverse=True, key=lambda x: x[0])
     score = max(0, min(100, round(sum(value for value, _ in weighted))))
     band = "critical" if score >= 70 else "high" if score >= 45 else "watch" if score >= 20 else "healthy"
     reasons = [item for value, item in weighted if value > 0][:5]

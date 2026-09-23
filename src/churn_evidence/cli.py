@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .engine import build_dossier
 from .loaders import add_billing, add_product_events, add_support, add_surveys, load_accounts
+from .models import parse_time
 from .report import write_csv, write_json, write_markdown
 
 
@@ -13,7 +14,7 @@ def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Build evidence-linked churn dossiers from local exports.")
     p.add_argument("--input", type=Path, required=True, help="Directory containing accounts.csv and optional source exports.")
     p.add_argument("--output", type=Path, default=Path("output"), help="Output directory.")
-    p.add_argument("--as-of", help="ISO timestamp used for reproducible time decay. Defaults to now.")
+    p.add_argument("--as-of", help="ISO timestamp to score as of. Evidence after it is ignored; no offset means UTC. Defaults to now.")
     p.add_argument("--min-score", type=int, default=0, help="Only emit accounts at or above this risk score.")
     return p
 
@@ -34,7 +35,7 @@ def main() -> None:
         path = args.input / filename
         if path.exists():
             loader(accounts, path)
-    as_of = datetime.fromisoformat(args.as_of.replace("Z", "+00:00")) if args.as_of else datetime.now(timezone.utc)
+    as_of = parse_time(args.as_of) if args.as_of else datetime.now(timezone.utc)
     dossiers = sorted((build_dossier(account, as_of) for account in accounts.values()), key=lambda item: (item.score, item.account.mrr), reverse=True)
     dossiers = [item for item in dossiers if item.score >= args.min_score]
     args.output.mkdir(parents=True, exist_ok=True)

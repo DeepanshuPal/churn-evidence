@@ -50,7 +50,9 @@ Example queue:
 
 ## Input contract
 
-`accounts.csv` is required. The other files are optional. All timestamps are ISO 8601.
+`accounts.csv` is required. The other files are optional. All timestamps are ISO 8601; a timestamp without an offset is read as UTC.
+
+`--as-of` scores a point-in-time snapshot: evidence dated after it is left out, so you can rerun a past triage from a newer export and get the queue you would have seen that day.
 
 ### `accounts.csv`
 
